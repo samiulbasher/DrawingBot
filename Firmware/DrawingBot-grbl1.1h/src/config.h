@@ -44,6 +44,10 @@
 // attach the servo's pwm pin to the z+ or z- pin of the CNC shield board
 #define SERVO_SUPPORT
 
+// which servo are use 180 degree or 360 degree [continuous servo]
+// if use 180 degree servo, comment this line
+#define USE_360_DEGREE_SERVO
+
 // Uncomment to invert servo direction 
 #define SERVO_INVERT
 

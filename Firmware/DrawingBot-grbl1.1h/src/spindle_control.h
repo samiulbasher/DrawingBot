@@ -52,7 +52,7 @@ uint8_t spindle_get_state();
   void spindle_set_speed(uint8_t pwm_value);
   
   // Computes 328p-specific PWM register value for the given RPM for quick updating.
-  uint16_t spindle_compute_pwm_value(float rpm);
+  uint8_t spindle_compute_pwm_value(float rpm);
   
 #else
   

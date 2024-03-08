@@ -115,7 +115,8 @@ void spindle_stop()
         SPINDLE_OCR_REGISTER = SERVO_LONG;                                                            
       #else                                                                                              
         SPINDLE_OCR_REGISTER = SERVO_SHORT;                                                            
-      #endif     
+      #endif 
+
     #else  
       SPINDLE_TCCRA_REGISTER &= ~(1<<SPINDLE_COMB_BIT); // Disable PWM. Output voltage is zero.
       #ifdef USE_SPINDLE_DIR_AS_ENABLE_PIN
@@ -142,12 +143,20 @@ void spindle_stop()
   void spindle_set_speed(uint8_t pwm_value)
   {
     SPINDLE_OCR_REGISTER = pwm_value; // Set PWM output level.
- 
     #ifdef SERVO_SUPPORT
-      /* 
-       * [For RC Servo -PWM always enable]
-      */ 
-      SPINDLE_TCCRA_REGISTER |= (1<<SPINDLE_COMB_BIT); // Enable PWM output. [For Servo]                                         
+      #ifdef USE_360_DEGREE_SERVO
+        if (pwm_value == SPINDLE_PWM_OFF_VALUE) {
+          SPINDLE_TCCRA_REGISTER &= ~(1<<SPINDLE_COMB_BIT); // Disable PWM. Output voltage is zero.
+        }
+        else {
+          SPINDLE_TCCRA_REGISTER |= (1<<SPINDLE_COMB_BIT); // Enable PWM output. [For Servo] 
+        }
+      #else
+        /* 
+        * [For 180 deg RC Servo -PWM always enable]
+        */
+        SPINDLE_TCCRA_REGISTER |= (1<<SPINDLE_COMB_BIT); // Enable PWM output. [For Servo]  
+      #endif                                       
     #else       
       #ifdef SPINDLE_ENABLE_OFF_WITH_ZERO_SPEED
         if (pwm_value == SPINDLE_PWM_OFF_VALUE) {
@@ -216,9 +225,9 @@ void spindle_stop()
     
   #else 
     // Called by spindle_set_state() and step segment generator. Keep routine small and efficient.
-    uint16_t spindle_compute_pwm_value(float rpm) // 328p PWM register is 8-bit.
+    uint8_t spindle_compute_pwm_value(float rpm) // 328p PWM register is 8-bit.
     {
-      uint16_t pwm_value;
+      uint8_t pwm_value;
       rpm *= (0.010*sys.spindle_speed_ovr); // Scale by spindle speed override value.
       // Calculate PWM register value based on rpm max/min settings and programmed rpm.
       if ((settings.rpm_min >= settings.rpm_max) || (rpm >= settings.rpm_max)) {
