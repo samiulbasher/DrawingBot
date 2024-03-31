@@ -445,12 +445,15 @@ ISR(TIMER1_COMPA_vect)
   #else
     st.counter_z += st.exec_block->steps[Z_AXIS];
   #endif
-  if (st.counter_z > st.exec_block->step_event_count) {
-    st.step_outbits |= (1<<Z_STEP_BIT);
-    st.counter_z -= st.exec_block->step_event_count;
-    if (st.exec_block->direction_bits & (1<<Z_DIRECTION_BIT)) { sys_position[Z_AXIS]--; }
-    else { sys_position[Z_AXIS]++; }
-  }
+
+  #if defined CNC_SHIELD_V3 || defined CNC_SHIELD_V4
+    if (st.counter_z > st.exec_block->step_event_count) {
+      st.step_outbits |= (1<<Z_STEP_BIT);
+      st.counter_z -= st.exec_block->step_event_count;
+      if (st.exec_block->direction_bits & (1<<Z_DIRECTION_BIT)) { sys_position[Z_AXIS]--; }
+      else { sys_position[Z_AXIS]++; }
+    }
+  #endif
 
   // During a homing cycle, lock out and prevent desired axes from moving.
   if (sys.state == STATE_HOMING) { 

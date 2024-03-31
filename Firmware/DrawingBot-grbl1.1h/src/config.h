@@ -39,6 +39,7 @@
 
 #define CNC_SHIELD_V3
 //#define CNC_SHIELD_V4 //chc shield v4 has microstepping circuit issues
+#define DRAWINGBOT_SHIELD
 
 // Use servos to control the plotter pen up and down.
 // attach the servo's pwm pin to the z+ or z- pin of the CNC shield board
@@ -49,7 +50,7 @@
 #define USE_360_DEGREE_SERVO
 
 // Uncomment to invert servo direction 
-#define SERVO_INVERT
+// #define SERVO_INVERT
 
 // Serial baud rate
 // #define BAUD_RATE 230400
