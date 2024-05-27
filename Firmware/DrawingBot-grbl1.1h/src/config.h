@@ -37,7 +37,7 @@
 #define DEFAULTS_PLOTTER
 #define CPU_MAP_ATMEGA328P // Arduino Uno CPU
 
-#define CNC_SHIELD_V3
+//#define CNC_SHIELD_V3
 //#define CNC_SHIELD_V4 //chc shield v4 has microstepping circuit issues
 #define DRAWINGBOT_SHIELD
 
@@ -47,10 +47,10 @@
 
 // which servo are use 180 degree or 360 degree [continuous servo]
 // if use 180 degree servo, comment this line
-#define USE_360_DEGREE_SERVO
+//#define USE_360_DEGREE_SERVO
 
 // Uncomment to invert servo direction 
-// #define SERVO_INVERT
+#define SERVO_INVERT
 
 // Serial baud rate
 // #define BAUD_RATE 230400
