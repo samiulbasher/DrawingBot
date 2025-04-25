@@ -12,8 +12,8 @@ To install the extension:
    - `drawingbot_gcode.py`
 
 3. Paste both files into your Inkscape extensions directory: 
-   - 'C:\Program Files\Inkscape\share\inkscape\extensions'
-> You may need administrator privileges to copy files into this folder.
+   - C:\Program Files\Inkscape\share\inkscape\extensions
+   - You may need administrator privileges to copy files into this folder.
 
 4. Open Inkscape (or restart it if it's already running).
 
