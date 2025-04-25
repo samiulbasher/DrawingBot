@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<inkscape-extension xmlns="http://www.inkscape.org/namespace/inkscape/extension">
+    <name>Create G-code</name>
+    <id>https://github.com/samiulbasher/DrawingBot.G-code</id>
+	<dependency type="executable" location="extensions">drawingbot_gcode.py</dependency>
+
+	<param name="tab" type="notebook">
+	
+	<page name="gcode" gui-text="G-code">
+	<label indent="1" appearance="header">
+	File location
+	</label>
+		<param indent="1" name="filename" type="string" 
+			gui-text="Filename:                    ">output.gcode</param>
+		<param indent="1" name="add-numeric-suffix-to-filename" type="boolean" 
+			gui-text="Add numeric suffix to filename">true</param>	
+		<param indent="1" name="directory" type="string" 
+			gui-text="Output G-code Path:">\desktop</param>
+
+		<label indent="2" xml:space="preserve" >
+
+		
+		Press "Apply" to create the G-code. Or in other tabs
+		adjust settings for DrawingBot.
+	</label>
+	</page>
+
+	<page name='setting' gui-text='Setting'>
+
+	<label appearance="header">
+	Z axis control
+	</label>
+		<param indent="1" name="servo-up-command" type="string"
+			gui-text="UP command:       ">M3</param>
+		<param indent="1" name="servo-down-command" type="string"
+			gui-text="DOWN command:">M5</param>
+		<param indent="1" name="servo-pwn" type="int" min="0" max="10000" 
+			gui-text="Angle for Z Axis or Servo angle S#(0-180):">30</param>
+
+	<label appearance="header">
+	Speed
+	</label>
+		<param indent="2" name="x-speed" type="int" min="0" max="10000" 
+			gui-text="X axis speed (mm/min):">3000</param>
+		<param indent="2" name="y-speed" type="int" min="0" max="10000" 
+			gui-text="Y axis speed (mm/min):">3000</param>
+
+	<label appearance="header">
+	Timing
+	</label>
+		<param indent="2" name="delay" type="float" min="0" max="10" 
+			gui-text="Delay (s):">1</param>
+
+	</page>
+
+	<page name="about" gui-text="About">
+      <label xml:space="preserve">
+	 	G-code Inkscape extension for DrawingBot
+		Release 1.0.5, dated 2024-03-12
+
+		* Firmware: grbl 1.1h(customize)
+		* Inkscape version v:1.3.2
+
+		Latest version of inkscape extension and 
+		firmware available at:
+		https://github.com/samiulbasher/DrawingBot
+
+	</label>
+	</page>
+
+
+    </param>
+
+  	<effect>
+		<effects-menu>
+			<submenu _name="DrawingBot"/>
+		</effects-menu>
+		<object-type>path</object-type>
+  	</effect>
+
+	<script>
+		<command reldir="extensions" interpreter="python">drawingbot_gcode.py</command>
+	</script>
+
+</inkscape-extension>
